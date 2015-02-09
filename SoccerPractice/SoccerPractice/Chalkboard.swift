@@ -29,19 +29,14 @@ class Chalkboard: UIViewController {
         brush = 3.0;
         opacity = 1.0;
         
-        
-//        178,34,34
-        
-        
         self.view.userInteractionEnabled = true;
         
         draww.addTarget(self, action:"draw:");
         self.view.addGestureRecognizer(draww);
 
         view.addSubview(mannysCanvas);
-        
-        
     }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         

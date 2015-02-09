@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0CFFE24F1A30E83E008E80C1"
-               BuildableName = "EarlesSoccerField.app"
-               BlueprintName = "EarlesSoccerField"
-               ReferencedContainer = "container:EarlesSoccerField.xcodeproj">
+               BuildableName = "SoccerPractice.app"
+               BlueprintName = "SoccerPractice"
+               ReferencedContainer = "container:SoccerPractice.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0CFFE2671A30E83E008E80C1"
-               BuildableName = "EarlesSoccerFieldTests.xctest"
-               BlueprintName = "EarlesSoccerFieldTests"
-               ReferencedContainer = "container:EarlesSoccerField.xcodeproj">
+               BuildableName = "SoccerPracticeTests.xctest"
+               BlueprintName = "SoccerPracticeTests"
+               ReferencedContainer = "container:SoccerPractice.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0CFFE2671A30E83E008E80C1"
-               BuildableName = "EarlesSoccerFieldTests.xctest"
-               BlueprintName = "EarlesSoccerFieldTests"
-               ReferencedContainer = "container:EarlesSoccerField.xcodeproj">
+               BuildableName = "SoccerPracticeTests.xctest"
+               BlueprintName = "SoccerPracticeTests"
+               ReferencedContainer = "container:SoccerPractice.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0CFFE24F1A30E83E008E80C1"
-            BuildableName = "EarlesSoccerField.app"
-            BlueprintName = "EarlesSoccerField"
-            ReferencedContainer = "container:EarlesSoccerField.xcodeproj">
+            BuildableName = "SoccerPractice.app"
+            BlueprintName = "SoccerPractice"
+            ReferencedContainer = "container:SoccerPractice.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0CFFE24F1A30E83E008E80C1"
-            BuildableName = "EarlesSoccerField.app"
-            BlueprintName = "EarlesSoccerField"
-            ReferencedContainer = "container:EarlesSoccerField.xcodeproj">
+            BuildableName = "SoccerPractice.app"
+            BlueprintName = "SoccerPractice"
+            ReferencedContainer = "container:SoccerPractice.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0CFFE24F1A30E83E008E80C1"
-            BuildableName = "EarlesSoccerField.app"
-            BlueprintName = "EarlesSoccerField"
-            ReferencedContainer = "container:EarlesSoccerField.xcodeproj">
+            BuildableName = "SoccerPractice.app"
+            BlueprintName = "SoccerPractice"
+            ReferencedContainer = "container:SoccerPractice.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
