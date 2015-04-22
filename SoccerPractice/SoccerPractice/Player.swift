@@ -24,10 +24,6 @@ class Player: UIViewController, NSCopying {
     var cloneDelegate:CloningProtocol?
     var refereeDelegate:RefereeingProtocol?
 
-    required override init() {
-        super.init();
-    }
-
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

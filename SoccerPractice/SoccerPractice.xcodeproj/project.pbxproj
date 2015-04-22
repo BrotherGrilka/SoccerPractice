@@ -31,7 +31,6 @@
 		B4EACCB71A88EE1D003ED759 /* RedStripe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EACC9D1A88EE1D003ED759 /* RedStripe.swift */; };
 		B4EACCB81A88EE1D003ED759 /* SoccerPractice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B4EACC9E1A88EE1D003ED759 /* SoccerPractice.xcdatamodeld */; };
 		B4EACCB91A88EE1D003ED759 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EACCA01A88EE1D003ED759 /* ViewController.swift */; };
-		B4EACCC01A88EFD6003ED759 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B4EACCBF1A88EFD6003ED759 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -188,7 +187,7 @@
 		0CFFE2481A30E83E008E80C1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = Mmyrmidons;
 				TargetAttributes = {
 					0CFFE24F1A30E83E008E80C1 = {
@@ -226,7 +225,6 @@
 				B4EACCAE1A88EE1D003ED759 /* MannysField@2x.png in Resources */,
 				B4EACCAA1A88EE1D003ED759 /* IndigoChevron.png in Resources */,
 				B4EACCA41A88EE1D003ED759 /* BlueSolid.png in Resources */,
-				B4EACCC01A88EFD6003ED759 /* Info.plist in Resources */,
 				B4EACCAF1A88EE1D003ED759 /* OrangeSolid.png in Resources */,
 				B4EACCA31A88EE1D003ED759 /* Main.storyboard in Resources */,
 				B4EACCA91A88EE1D003ED759 /* Images.xcassets in Resources */,
@@ -369,6 +367,7 @@
 				INFOPLIST_FILE = SoccerPractice/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = SoccerPractice;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -380,6 +379,7 @@
 				INFOPLIST_FILE = SoccerPractice/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = SoccerPractice;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -412,6 +412,7 @@
 			children = (
 				B4EACC9F1A88EE1D003ED759 /* SoccerPractice.xcdatamodel */,
 			);
+			currentVersion = B4EACC9F1A88EE1D003ED759 /* SoccerPractice.xcdatamodel */;
 			path = SoccerPractice.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

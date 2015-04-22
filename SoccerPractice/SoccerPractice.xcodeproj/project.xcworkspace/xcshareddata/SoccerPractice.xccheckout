@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8AD911FE-66CF-4C46-B148-6A4FD8AA0CB0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SoccerPractice</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8DE01065340EB6F88AC76FC7F63F795C4C3E5462</key>
+		<string>https://github.com/BrotherGrilka/SoccerPractice.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SoccerPractice/SoccerPractice.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8DE01065340EB6F88AC76FC7F63F795C4C3E5462</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/BrotherGrilka/SoccerPractice.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8DE01065340EB6F88AC76FC7F63F795C4C3E5462</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8DE01065340EB6F88AC76FC7F63F795C4C3E5462</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SoccerPractice</string>
+		</dict>
+	</array>
+</dict>
+</plist>

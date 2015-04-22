@@ -109,7 +109,7 @@ class ViewController: UIViewController, CloningProtocol, RefereeingProtocol {
     }
     
     func clone(player: Player) {
-        let newPlayer: Player = player.copy() as Player;
+        let newPlayer: Player = player.copy() as! Player;
         newPlayer.positionPlayer(player.view.frame.origin.x, y: player.view.frame.origin.y);
         bench.append(newPlayer);
         newPlayer.cloneDelegate = self;
