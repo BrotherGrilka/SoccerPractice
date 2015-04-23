@@ -20,8 +20,8 @@ class Manager {
         var footballer = NSEntityDescription.insertNewObjectForEntityForName("Footballer", inManagedObjectContext: self.managedObjectContext!) as! Footballer
         
         footballer.benchTag = player.view.tag
-        footballer.fieldPositionX = 190
-        footballer.fieldPositionY = 377
+        footballer.fieldPositionX = player.view.frame.origin.x
+        footballer.fieldPositionY = player.view.frame.origin.y
         footballer.side = -1
         
         _error = nil
@@ -34,12 +34,22 @@ class Manager {
         println("Hi Miss Tikkie: \(footballer)")
     }
     
-    func takeTheField() {
+    func takeTheField() -> [Player] {
         _error = nil
-        var fetchRequest: NSFetchRequest = NSFetchRequest(entityName: "Footballer")
-        let footballers : [AnyObject] = self.managedObjectContext!.executeFetchRequest(fetchRequest, error:&_error)!
+        var fetchRequest = NSFetchRequest(entityName: "Footballer")
+        let footballers: [AnyObject] = self.managedObjectContext!.executeFetchRequest(fetchRequest, error:&_error)!
+        var players = [Player]()
+        
+        for footballer:AnyObject in footballers {
+            println("Hi Miss Callie: \(footballers.count) :: \(footballer)")
+            
+            let redStripe: RedStripe = RedStripe();
+                
+                redStripe.positionPlayer(970, y: 130);
 
-        println("Hi Miss Callie: \(footballers.count) :: \(footballers)")
+        }
+        
+        return players;
     }
     
     // MARK: - Core Data stack
