@@ -34,6 +34,8 @@ class ViewController: UIViewController, CloningProtocol, RefereeingProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Manager.ofFootballers.takeTheField()
+        
         view.addSubview(chalkboard.view);
         self.addChildViewController(chalkboard);
         chalkboard.didMoveToParentViewController(self);

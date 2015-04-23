@@ -53,13 +53,15 @@ class Player: UIViewController, NSCopying {
     }
 
     func drag(recognizer: UIPanGestureRecognizer) {
-        if (recognizer.state == UIGestureRecognizerState.Began) {
-            cloneDelegate?.clone(self);
-        }
+        if recognizer.state == UIGestureRecognizerState.Began
+            {cloneDelegate?.clone(self);}
  
         let translation = recognizer.translationInView(self.view)
         recognizer.view!.center = CGPoint(x:recognizer.view!.center.x + translation.x, y:recognizer.view!.center.y + translation.y)
         recognizer.setTranslation(CGPointZero, inView: self.view)
+        
+        if recognizer.state == UIGestureRecognizerState.Ended
+            {Manager.ofFootballers.updateFootballer(self)}
     }
     
     func doubleTap(recognizer: UITapGestureRecognizer) {
