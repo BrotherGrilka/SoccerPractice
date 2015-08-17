@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol CloningProtocol {
+protocol CloningDelegate {
     func clone(player: Player)
 }
 
-protocol RefereeingProtocol {
+protocol RefereeingDelegate {
     func sendOff(player: Player)
 }
 
@@ -21,8 +21,8 @@ class Player: UIViewController, NSCopying {
     var playerImage:UIImageView = UIImageView();
     let dragg: UIPanGestureRecognizer = UIPanGestureRecognizer();
     let doubleTapp: UITapGestureRecognizer = UITapGestureRecognizer();
-    var cloneDelegate:CloningProtocol?
-    var refereeDelegate:RefereeingProtocol?
+    var cloneDelegate:CloningDelegate?
+    var refereeDelegate:RefereeingDelegate?
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

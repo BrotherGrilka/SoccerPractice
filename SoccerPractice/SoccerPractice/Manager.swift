@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import UIKit;
 
 private let _ofFootballers = Manager()
 private var _error:NSError? = nil
@@ -17,15 +18,26 @@ class Manager {
     }
  
     func updateFootballer(player: Player) {
-        var footballer = NSEntityDescription.insertNewObjectForEntityForName("Footballer", inManagedObjectContext: self.managedObjectContext!) as! Footballer
+        var fetchRequest = NSFetchRequest(entityName: "Footballer")
         
+        fetchRequest.predicate = NSPredicate(format: "benchTag == %d", player.view.tag)
+
+        if let footballers: [AnyObject] = self.managedObjectContext!.executeFetchRequest(fetchRequest, error:&_error) {
+            if footballers.count > 0
+                {saveFootballer(footballers[0] as! Footballer, player: player)}
+            else if var footballer = NSEntityDescription.insertNewObjectForEntityForName("Footballer", inManagedObjectContext: self.managedObjectContext!) as? Footballer
+                {saveFootballer(footballer, player: player)}
+        }
+    }
+    
+    func saveFootballer(footballer: Footballer, player: Player) {
         footballer.benchTag = player.view.tag
         footballer.fieldPositionX = player.view.frame.origin.x
         footballer.fieldPositionY = player.view.frame.origin.y
-        footballer.side = -1
+        footballer.side = NSStringFromClass(player.dynamicType)
         
         _error = nil
-
+        
         if !self.managedObjectContext!.save(&_error) {
             NSLog("Unresolved error \(_error), \(_error!.userInfo)")
             abort()
@@ -40,16 +52,36 @@ class Manager {
         let footballers: [AnyObject] = self.managedObjectContext!.executeFetchRequest(fetchRequest, error:&_error)!
         var players = [Player]()
         
-        for footballer:AnyObject in footballers {
-            println("Hi Miss Callie: \(footballers.count) :: \(footballer)")
+        for fetchedFootballer:AnyObject in footballers {
+            println("Hi Miss Callie: \(fetchedFootballer) :: \(fetchedFootballer.side)")
             
-            let redStripe: RedStripe = RedStripe();
-                
-                redStripe.positionPlayer(970, y: 130);
+            if let footballer: Footballer = fetchedFootballer as? Footballer {
+                if let playerClass = NSClassFromString(footballer.side) as? Player.Type {
+                    var starter = playerClass()
 
+                    starter.positionPlayer(CGFloat(footballer.fieldPositionX), y: CGFloat(footballer.fieldPositionY));
+                    starter.view.tag = footballer.benchTag.integerValue;
+                    
+                    players.append(starter);
+                }
+            }
         }
         
         return players;
+    }
+    
+    func sendOff(player: Player) {
+        _error = nil;
+        var fetchRequest = NSFetchRequest(entityName: "Footballer")
+        
+        fetchRequest.predicate = NSPredicate(format: "benchTag == %d", player.view.tag)
+
+        if let footballers: [AnyObject] = self.managedObjectContext!.executeFetchRequest(fetchRequest, error:&_error) {
+            if footballers.count > 0 {
+                self.managedObjectContext?.deleteObject(footballers[0] as! Footballer)
+                self.managedObjectContext?.save(&_error)
+            }
+        }
     }
     
     // MARK: - Core Data stack

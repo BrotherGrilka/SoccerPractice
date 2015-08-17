@@ -8,12 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController, CloningProtocol, RefereeingProtocol {
-    @IBOutlet var field: UIImageView!
-    @IBOutlet var eraser: UIButton!
-    @IBOutlet var darkSlateGray: UIButton!
-    @IBOutlet var fireBrick: UIButton!
-    @IBOutlet var navy: UIButton!
+class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
+    @IBOutlet weak var field: UIImageView!
+    @IBOutlet weak var eraser: UIButton!
+    @IBOutlet weak var darkSlateGray: UIButton!
+    @IBOutlet weak var fireBrick: UIButton!
+    @IBOutlet weak var navy: UIButton!
 
     var bench = [Player]();
     var benchTag = 0;
@@ -34,12 +34,22 @@ class ViewController: UIViewController, CloningProtocol, RefereeingProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Manager.ofFootballers.takeTheField()
-        
         view.addSubview(chalkboard.view);
         self.addChildViewController(chalkboard);
         chalkboard.didMoveToParentViewController(self);
-        
+
+        for starter:Player in Manager.ofFootballers.takeTheField() {
+            self.addChildViewController(starter);
+            starter.didMoveToParentViewController(self);
+            view.addSubview(starter.view);
+            
+            if starter.view.tag > benchTag
+                {benchTag = starter.view.tag + 1}
+            
+            starter.refereeDelegate = self;
+            bench.append(starter);
+        }
+
         blueSolid.positionPlayer(970, y: 50);
         blueSolid.cloneDelegate = self;
         self.addChildViewController(blueSolid);
@@ -101,8 +111,6 @@ class ViewController: UIViewController, CloningProtocol, RefereeingProtocol {
     }
 
     @IBAction func changeColour(sender:UIButton!) {
-        println("Hi Manny \(sender)");
-        
         chalkboard.changeColour(sender.backgroundColor!.CGColor);
     }
     
@@ -116,7 +124,6 @@ class ViewController: UIViewController, CloningProtocol, RefereeingProtocol {
         bench.append(newPlayer);
         newPlayer.cloneDelegate = self;
         newPlayer.view.tag = benchTag++;
-        bench.append(newPlayer);
         
         self.addChildViewController(newPlayer);
         newPlayer.didMoveToParentViewController(self);
@@ -132,6 +139,8 @@ class ViewController: UIViewController, CloningProtocol, RefereeingProtocol {
             
             player.removeFromParentViewController();
             player.view.removeFromSuperview();
+            
+            Manager.ofFootballers.sendOff(player);
         }
     }
 

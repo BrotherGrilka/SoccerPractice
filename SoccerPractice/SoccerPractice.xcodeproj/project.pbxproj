@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0C77AC071AE97FBD00D2E9C1 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C77AC061AE97FBD00D2E9C1 /* Manager.swift */; };
-		0C77AC0B1AE987BE00D2E9C1 /* Footballer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C77AC0A1AE987BE00D2E9C1 /* Footballer.swift */; };
 		B4EACCA11A88EE1D003ED759 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EACC851A88EE1D003ED759 /* AppDelegate.swift */; };
 		B4EACCA21A88EE1D003ED759 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4EACC861A88EE1D003ED759 /* LaunchScreen.xib */; };
 		B4EACCA31A88EE1D003ED759 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4EACC881A88EE1D003ED759 /* Main.storyboard */; };
@@ -33,11 +32,11 @@
 		B4EACCB71A88EE1D003ED759 /* RedStripe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EACC9D1A88EE1D003ED759 /* RedStripe.swift */; };
 		B4EACCB81A88EE1D003ED759 /* SoccerPractice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B4EACC9E1A88EE1D003ED759 /* SoccerPractice.xcdatamodeld */; };
 		B4EACCB91A88EE1D003ED759 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EACCA01A88EE1D003ED759 /* ViewController.swift */; };
+		B4F466911B80B9BD004E0838 /* Footballer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F466901B80B9BD004E0838 /* Footballer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0C77AC061AE97FBD00D2E9C1 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
-		0C77AC0A1AE987BE00D2E9C1 /* Footballer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Footballer.swift; sourceTree = "<group>"; };
 		0CFFE2501A30E83E008E80C1 /* SoccerPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoccerPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4EACC851A88EE1D003ED759 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4EACC871A88EE1D003ED759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -64,6 +63,7 @@
 		B4EACC9F1A88EE1D003ED759 /* SoccerPractice.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SoccerPractice.xcdatamodel; sourceTree = "<group>"; };
 		B4EACCA01A88EE1D003ED759 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B4EACCBF1A88EFD6003ED759 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4F466901B80B9BD004E0838 /* Footballer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Footballer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 		0C77AC031AE97F3700D2E9C1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0C77AC0A1AE987BE00D2E9C1 /* Footballer.swift */,
+				B4F466901B80B9BD004E0838 /* Footballer.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -275,7 +275,7 @@
 				B4EACCB11A88EE1D003ED759 /* Player.swift in Sources */,
 				B4EACCB31A88EE1D003ED759 /* PurpleStripe.swift in Sources */,
 				B4EACCB01A88EE1D003ED759 /* OrangeSolid.swift in Sources */,
-				0C77AC0B1AE987BE00D2E9C1 /* Footballer.swift in Sources */,
+				B4F466911B80B9BD004E0838 /* Footballer.swift in Sources */,
 				B4EACCB51A88EE1D003ED759 /* RedSolid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

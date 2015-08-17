@@ -46,9 +46,8 @@ class Chalkboard: UIViewController {
     func draw(recognizer: UIPanGestureRecognizer) {
         var currentPoint = recognizer.locationInView(self.view);
         
-        if (recognizer.state == UIGestureRecognizerState.Began) {
-            lastPoint = currentPoint;
-        }
+        if recognizer.state == UIGestureRecognizerState.Began
+            {lastPoint = currentPoint}
         
         UIGraphicsBeginImageContext(self.view.frame.size);
   
