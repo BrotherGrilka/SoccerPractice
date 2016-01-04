@@ -18,15 +18,18 @@ class Manager {
     }
  
     func updateFootballer(player: Player) {
-        var fetchRequest = NSFetchRequest(entityName: "Footballer")
+        let fetchRequest = NSFetchRequest(entityName: "Footballer")
         
         fetchRequest.predicate = NSPredicate(format: "benchTag == %d", player.view.tag)
 
-        if let footballers: [AnyObject] = self.managedObjectContext!.executeFetchRequest(fetchRequest, error:&_error) {
+        do {
+            let footballers: [AnyObject] = try self.managedObjectContext!.executeFetchRequest(fetchRequest)
             if footballers.count > 0
                 {saveFootballer(footballers[0] as! Footballer, player: player)}
-            else if var footballer = NSEntityDescription.insertNewObjectForEntityForName("Footballer", inManagedObjectContext: self.managedObjectContext!) as? Footballer
+            else if let footballer = NSEntityDescription.insertNewObjectForEntityForName("Footballer", inManagedObjectContext: self.managedObjectContext!) as? Footballer
                 {saveFootballer(footballer, player: player)}
+        } catch let error as NSError {
+            _error = error
         }
     }
     
@@ -38,26 +41,29 @@ class Manager {
         
         _error = nil
         
-        if !self.managedObjectContext!.save(&_error) {
+        do {
+            try self.managedObjectContext!.save()
+        } catch let error as NSError {
+            _error = error
             NSLog("Unresolved error \(_error), \(_error!.userInfo)")
             abort()
         }
         
-        println("Hi Miss Tikkie: \(footballer)")
+        print("Hi Miss Tikkie: \(footballer)")
     }
     
     func takeTheField() -> [Player] {
         _error = nil
-        var fetchRequest = NSFetchRequest(entityName: "Footballer")
-        let footballers: [AnyObject] = self.managedObjectContext!.executeFetchRequest(fetchRequest, error:&_error)!
+        let fetchRequest = NSFetchRequest(entityName: "Footballer")
+        let footballers: [AnyObject] = try! self.managedObjectContext!.executeFetchRequest(fetchRequest)
         var players = [Player]()
         
         for fetchedFootballer:AnyObject in footballers {
-            println("Hi Miss Callie: \(fetchedFootballer) :: \(fetchedFootballer.side)")
+            print("Hi Miss Callie: \(fetchedFootballer) :: \(fetchedFootballer.side)")
             
             if let footballer: Footballer = fetchedFootballer as? Footballer {
                 if let playerClass = NSClassFromString(footballer.side) as? Player.Type {
-                    var starter = playerClass()
+                    let starter = playerClass.init()
 
                     starter.positionPlayer(CGFloat(footballer.fieldPositionX), y: CGFloat(footballer.fieldPositionY));
                     starter.view.tag = footballer.benchTag.integerValue;
@@ -72,15 +78,22 @@ class Manager {
     
     func sendOff(player: Player) {
         _error = nil;
-        var fetchRequest = NSFetchRequest(entityName: "Footballer")
+        let fetchRequest = NSFetchRequest(entityName: "Footballer")
         
         fetchRequest.predicate = NSPredicate(format: "benchTag == %d", player.view.tag)
 
-        if let footballers: [AnyObject] = self.managedObjectContext!.executeFetchRequest(fetchRequest, error:&_error) {
+        do {
+            let footballers: [AnyObject] = try self.managedObjectContext!.executeFetchRequest(fetchRequest)
             if footballers.count > 0 {
                 self.managedObjectContext?.deleteObject(footballers[0] as! Footballer)
-                self.managedObjectContext?.save(&_error)
+                do {
+                    try self.managedObjectContext?.save()
+                } catch let error as NSError {
+                    _error = error
+                }
             }
+        } catch let error as NSError {
+            _error = error
         }
     }
     
@@ -89,7 +102,7 @@ class Manager {
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "mmyrmidons.EarlesSoccerField" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as! NSURL
+        return urls[urls.count-1] 
         }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -105,18 +118,26 @@ class Manager {
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SoccerPractice.sqlite")
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+        do {
+            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+        } catch var error1 as NSError {
+            error = error1
             coordinator = nil
             // Report any error we got.
-            let dict = NSMutableDictionary()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
-            dict[NSUnderlyingErrorKey] = error
-            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict as [NSObject : AnyObject])
+            
+            let dict: [NSObject : AnyObject] = [
+                NSLocalizedDescriptionKey : "Failed to initialize the application's saved data",
+                NSLocalizedFailureReasonErrorKey : failureReason,
+                NSUnderlyingErrorKey : error!
+            ]
+            
+            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")
             abort()
+        } catch {
+            fatalError()
         }
         
         return coordinator
@@ -138,11 +159,16 @@ class Manager {
     func saveContext () {
         if let moc = self.managedObjectContext {
             var error: NSError? = nil
-            if moc.hasChanges && !moc.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                NSLog("Unresolved error \(error), \(error!.userInfo)")
-                abort()
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch let error1 as NSError {
+                    error = error1
+                    // Replace this implementation with code to handle the error appropriately.
+                    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    NSLog("Unresolved error \(error), \(error!.userInfo)")
+                    abort()
+                }
             }
         }
     }

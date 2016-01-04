@@ -44,7 +44,7 @@ class Chalkboard: UIViewController {
     }
     
     func draw(recognizer: UIPanGestureRecognizer) {
-        var currentPoint = recognizer.locationInView(self.view);
+        let currentPoint = recognizer.locationInView(self.view);
         
         if recognizer.state == UIGestureRecognizerState.Began
             {lastPoint = currentPoint}
@@ -55,10 +55,10 @@ class Chalkboard: UIViewController {
         
         CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
         CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
-        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+        CGContextSetLineCap(UIGraphicsGetCurrentContext(), CGLineCap.Round);
         CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
         CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, 1.0);
-        CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
+        CGContextSetBlendMode(UIGraphicsGetCurrentContext(),CGBlendMode.Normal);
 
         CGContextStrokePath(UIGraphicsGetCurrentContext());
         self.mannysCanvas.image = UIGraphicsGetImageFromCurrentImageContext();

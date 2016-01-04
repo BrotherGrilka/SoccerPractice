@@ -27,7 +27,7 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
     
     let chalkboard: Chalkboard = Chalkboard();
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
     }
     
@@ -134,7 +134,7 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
     }
 
     func sendOff(player: Player) {
-        if let i = find(bench, player) {
+        if let i = bench.indexOf(player) {
             bench.removeAtIndex(i);
             
             player.removeFromParentViewController();

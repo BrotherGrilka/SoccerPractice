@@ -24,7 +24,7 @@ class Player: UIViewController, NSCopying {
     var cloneDelegate:CloningDelegate?
     var refereeDelegate:RefereeingDelegate?
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -69,7 +69,7 @@ class Player: UIViewController, NSCopying {
     }
     
     func copyWithZone(zone: NSZone) -> AnyObject {
-        return self.dynamicType();
+        return self.dynamicType.init();
     }
     
     override func didReceiveMemoryWarning() {
