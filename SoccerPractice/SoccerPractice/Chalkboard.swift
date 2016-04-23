@@ -31,7 +31,7 @@ class Chalkboard: UIViewController {
         
         self.view.userInteractionEnabled = true;
         
-        draww.addTarget(self, action:"draw:");
+        draww.addTarget(self, action:#selector(Chalkboard.draw(_:)));
         self.view.addGestureRecognizer(draww);
 
         view.addSubview(mannysCanvas);

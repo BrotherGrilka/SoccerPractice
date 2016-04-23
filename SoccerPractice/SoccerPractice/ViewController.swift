@@ -55,7 +55,8 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         self.addChildViewController(blueSolid);
         blueSolid.didMoveToParentViewController(self);
         view.addSubview(blueSolid.view);
-        blueSolid.view.tag = benchTag++;
+        blueSolid.view.tag = benchTag;
+        benchTag += 1;
         bench.append(blueSolid);
         
         redStripe.positionPlayer(970, y: 130);
@@ -63,7 +64,8 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         self.addChildViewController(redStripe);
         redStripe.didMoveToParentViewController(self);
         view.addSubview(redStripe.view);
-        redStripe.view.tag = benchTag++;
+        redStripe.view.tag = benchTag;
+        benchTag += 1;
         bench.append(redStripe);
         
         indigoChevron.positionPlayer(970, y: 210);
@@ -71,7 +73,8 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         self.addChildViewController(indigoChevron);
         indigoChevron.didMoveToParentViewController(self);
         view.addSubview(indigoChevron.view);
-        indigoChevron.view.tag = benchTag++;
+        indigoChevron.view.tag = benchTag;
+        benchTag += 1;
         bench.append(indigoChevron);
 
         orangeSolid.positionPlayer(970, y: 290);
@@ -79,7 +82,8 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         self.addChildViewController(orangeSolid);
         orangeSolid.didMoveToParentViewController(self);
         view.addSubview(orangeSolid.view);
-        orangeSolid.view.tag = benchTag++;
+        orangeSolid.view.tag = benchTag;
+        benchTag += 1;
         bench.append(orangeSolid);
 
         purpleStripe.positionPlayer(970, y: 370);
@@ -87,7 +91,8 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         self.addChildViewController(purpleStripe);
         purpleStripe.didMoveToParentViewController(self);
         view.addSubview(purpleStripe.view);
-        purpleStripe.view.tag = benchTag++;
+        purpleStripe.view.tag = benchTag;
+        benchTag += 1;
         bench.append(purpleStripe);
 
         redSolid.positionPlayer(970, y: 450);
@@ -95,7 +100,8 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         self.addChildViewController(redSolid);
         redSolid.didMoveToParentViewController(self);
         view.addSubview(redSolid.view);
-        redSolid.view.tag = benchTag++;
+        redSolid.view.tag = benchTag;
+        benchTag += 1;
         bench.append(redSolid);
         
         self.view.bringSubviewToFront(eraser);
@@ -123,7 +129,8 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         newPlayer.positionPlayer(player.view.frame.origin.x, y: player.view.frame.origin.y);
         bench.append(newPlayer);
         newPlayer.cloneDelegate = self;
-        newPlayer.view.tag = benchTag++;
+        newPlayer.view.tag = benchTag;
+        benchTag += 1;
         
         self.addChildViewController(newPlayer);
         newPlayer.didMoveToParentViewController(self);
