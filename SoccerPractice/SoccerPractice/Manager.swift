@@ -53,24 +53,37 @@ class Manager {
     }
     
     func takeTheField() -> [Player] {
-        _error = nil
-        let fetchRequest = NSFetchRequest(entityName: "Footballer")
-        let footballers: [AnyObject] = try! self.managedObjectContext!.executeFetchRequest(fetchRequest)
         var players = [Player]()
-        
-        for fetchedFootballer:AnyObject in footballers {
-            print("Hi Miss Callie: \(fetchedFootballer) :: \(fetchedFootballer.side)")
-            
-            if let footballer: Footballer = fetchedFootballer as? Footballer {
-                if let playerClass = NSClassFromString(footballer.side) as? Player.Type {
-                    let starter = playerClass.init()
+        let fetchRequest = NSFetchRequest(entityName: "Footballer")
 
-                    starter.positionPlayer(CGFloat(footballer.fieldPositionX), y: CGFloat(footballer.fieldPositionY));
-                    starter.view.tag = footballer.benchTag.integerValue;
-                    
-                    players.append(starter);
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "benchTag", ascending: true)]
+        _error = nil
+        
+        let fetchedFootballers = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
+        
+        do {
+            try fetchedFootballers.performFetch()
+            
+            for fetchedFootballer:AnyObject in fetchedFootballers.fetchedObjects! {
+                print("Hi Miss Callie: \(fetchedFootballer) :: \(fetchedFootballer.side)")
+                
+                if let footballer: Footballer = fetchedFootballer as? Footballer {
+                    if let playerClass = NSClassFromString(footballer.side) as? Player.Type {
+                        let starter = playerClass.init()
+                        
+                        starter.positionPlayer(CGFloat(footballer.fieldPositionX), y: CGFloat(footballer.fieldPositionY));
+                        starter.view.tag = footballer.benchTag.integerValue;
+                        
+                        players.append(starter);
+                    }
                 }
             }
+        } catch let error as NSError {
+            _error = error
+        }
+        
+        if let error = _error {
+            print("Fetch error: \(error)")
         }
         
         return players;

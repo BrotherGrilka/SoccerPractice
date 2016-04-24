@@ -40,8 +40,8 @@ class Player: UIViewController, NSCopying {
         
         self.view.addSubview(playerImage);
         
-        dragg.addTarget(self, action:"drag:");
-        doubleTapp.addTarget(self, action: "doubleTap:");
+        dragg.addTarget(self, action:#selector(Player.drag(_:)));
+        doubleTapp.addTarget(self, action: #selector(Player.doubleTap(_:)));
 //        doubleTapp.numberOfTapsRequired = 2;
         
         self.view.addGestureRecognizer(dragg);
