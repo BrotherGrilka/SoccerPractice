@@ -64,18 +64,16 @@ class Manager {
         do {
             try fetchedFootballers.performFetch()
             
-            for fetchedFootballer:AnyObject in fetchedFootballers.fetchedObjects! {
+            for fetchedFootballer:Footballer in fetchedFootballers.fetchedObjects as! [Footballer] {
                 print("Hi Miss Callie: \(fetchedFootballer) :: \(fetchedFootballer.side)")
                 
-                if let footballer: Footballer = fetchedFootballer as? Footballer {
-                    if let playerClass = NSClassFromString(footballer.side) as? Player.Type {
-                        let starter = playerClass.init()
+                if let playerClass = NSClassFromString(fetchedFootballer.side) as? Player.Type {
+                    let starter = playerClass.init()
                         
-                        starter.positionPlayer(CGFloat(footballer.fieldPositionX), y: CGFloat(footballer.fieldPositionY));
-                        starter.view.tag = footballer.benchTag.integerValue;
+                    starter.positionPlayer(CGFloat(fetchedFootballer.fieldPositionX), y: CGFloat(fetchedFootballer.fieldPositionY));
+                    starter.view.tag = fetchedFootballer.benchTag.integerValue;
                         
-                        players.append(starter);
-                    }
+                    players.append(starter);
                 }
             }
         } catch let error as NSError {
