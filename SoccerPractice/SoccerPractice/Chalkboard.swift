@@ -29,7 +29,7 @@ class Chalkboard: UIViewController {
         brush = 3.0;
         opacity = 1.0;
         
-        self.view.userInteractionEnabled = true;
+        self.view.isUserInteractionEnabled = true;
         
         draww.addTarget(self, action:#selector(Chalkboard.draw(_:)));
         self.view.addGestureRecognizer(draww);
@@ -43,24 +43,24 @@ class Chalkboard: UIViewController {
         mannysCanvas.frame = view.bounds;
     }
     
-    func draw(recognizer: UIPanGestureRecognizer) {
-        let currentPoint = recognizer.locationInView(self.view);
+    func draw(_ recognizer: UIPanGestureRecognizer) {
+        let currentPoint = recognizer.location(in: self.view);
         
-        if recognizer.state == UIGestureRecognizerState.Began
+        if recognizer.state == UIGestureRecognizerState.began
             {lastPoint = currentPoint}
         
         UIGraphicsBeginImageContext(self.view.frame.size);
   
-        mannysCanvas.image?.drawInRect(CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height));
+        mannysCanvas.image?.draw(in: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height));
         
-        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
-        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
-        CGContextSetLineCap(UIGraphicsGetCurrentContext(), CGLineCap.Round);
-        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
-        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, 1.0);
-        CGContextSetBlendMode(UIGraphicsGetCurrentContext(),CGBlendMode.Normal);
+        UIGraphicsGetCurrentContext()?.move(to: CGPoint(x: lastPoint.x, y: lastPoint.y));
+        UIGraphicsGetCurrentContext()?.addLine(to: CGPoint(x: currentPoint.x, y: currentPoint.y));
+        UIGraphicsGetCurrentContext()?.setLineCap(CGLineCap.round);
+        UIGraphicsGetCurrentContext()?.setLineWidth(brush );
+        UIGraphicsGetCurrentContext()?.setStrokeColor(red: red, green: green, blue: blue, alpha: 1.0);
+        UIGraphicsGetCurrentContext()?.setBlendMode(CGBlendMode.normal);
 
-        CGContextStrokePath(UIGraphicsGetCurrentContext());
+        UIGraphicsGetCurrentContext()?.strokePath();
         self.mannysCanvas.image = UIGraphicsGetImageFromCurrentImageContext();
         mannysCanvas.alpha = opacity;
         UIGraphicsEndImageContext();
@@ -76,16 +76,16 @@ class Chalkboard: UIViewController {
         self.mannysCanvas.image = nil;
     }
     
-    func changeColour(color: CGColor) {
+    func changeColour(_ color: CGColor) {
 //        CGColorRef colorRef = [colorButton.backgroundColor CGColor];
         
-        let _countComponents = CGColorGetNumberOfComponents(color);
+        let _countComponents = color.numberOfComponents;
         
         if (_countComponents == 4) {
-            let _components = CGColorGetComponents(color);
-            red     = _components[0];
-            green = _components[1];
-            blue   = _components[2];
+            let _components = color.components;
+            red     = (_components?[0])!;
+            green = (_components?[1])!;
+            blue   = (_components?[2])!;
         }
     }
 

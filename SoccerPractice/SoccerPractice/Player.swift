@@ -9,15 +9,15 @@
 import UIKit
 
 protocol CloningDelegate {
-    func clone(player: Player)
+    func clone(_ player: Player)
 }
 
 protocol RefereeingDelegate {
-    func sendOff(player: Player)
+    func sendOff(_ player: Player)
 }
 
 class Player: UIViewController, NSCopying {
-    let playerSize:CGRect = CGRectMake(0, 0, 40, 60);
+    let playerSize:CGRect = CGRect(x: 0, y: 0, width: 40, height: 60);
     var playerImage:UIImageView = UIImageView();
     let dragg: UIPanGestureRecognizer = UIPanGestureRecognizer();
     let doubleTapp: UITapGestureRecognizer = UITapGestureRecognizer();
@@ -28,7 +28,7 @@ class Player: UIViewController, NSCopying {
         super.init(coder: aDecoder)
     }
     
-    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -48,28 +48,28 @@ class Player: UIViewController, NSCopying {
         self.view.addGestureRecognizer(doubleTapp);
     }
 
-    func positionPlayer(x: CGFloat, y: CGFloat) {
-        view.frame = CGRectMake(x, y, view.frame.width, view.frame.height)
+    func positionPlayer(_ x: CGFloat, y: CGFloat) {
+        view.frame = CGRect(x: x, y: y, width: view.frame.width, height: view.frame.height)
     }
 
-    func drag(recognizer: UIPanGestureRecognizer) {
-        if recognizer.state == UIGestureRecognizerState.Began
+    func drag(_ recognizer: UIPanGestureRecognizer) {
+        if recognizer.state == UIGestureRecognizerState.began
             {cloneDelegate?.clone(self);}
  
-        let translation = recognizer.translationInView(self.view)
+        let translation = recognizer.translation(in: self.view)
         recognizer.view!.center = CGPoint(x:recognizer.view!.center.x + translation.x, y:recognizer.view!.center.y + translation.y)
-        recognizer.setTranslation(CGPointZero, inView: self.view)
+        recognizer.setTranslation(CGPoint.zero, in: self.view)
         
-        if recognizer.state == UIGestureRecognizerState.Ended
+        if recognizer.state == UIGestureRecognizerState.ended
             {Manager.ofFootballers.updateFootballer(self)}
     }
     
-    func doubleTap(recognizer: UITapGestureRecognizer) {
+    func doubleTap(_ recognizer: UITapGestureRecognizer) {
         refereeDelegate?.sendOff(self);
     }
     
-    func copyWithZone(zone: NSZone) -> AnyObject {
-        return self.dynamicType.init();
+    func copy(with zone: NSZone?) -> Any {
+        return type(of: self).init();
     }
     
     override func didReceiveMemoryWarning() {

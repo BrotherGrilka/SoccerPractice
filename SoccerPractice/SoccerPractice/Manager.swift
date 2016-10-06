@@ -17,27 +17,27 @@ class Manager {
         return _ofFootballers;
     }
  
-    func updateFootballer(player: Player) {
-        let fetchRequest = NSFetchRequest(entityName: "Footballer")
+    func updateFootballer(_ player: Player) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Footballer")
         
         fetchRequest.predicate = NSPredicate(format: "benchTag == %d", player.view.tag)
 
         do {
-            let footballers: [AnyObject] = try self.managedObjectContext!.executeFetchRequest(fetchRequest)
+            let footballers: [AnyObject] = try self.managedObjectContext!.fetch(fetchRequest)
             if footballers.count > 0
                 {saveFootballer(footballers[0] as! Footballer, player: player)}
-            else if let footballer = NSEntityDescription.insertNewObjectForEntityForName("Footballer", inManagedObjectContext: self.managedObjectContext!) as? Footballer
+            else if let footballer = NSEntityDescription.insertNewObject(forEntityName: "Footballer", into: self.managedObjectContext!) as? Footballer
                 {saveFootballer(footballer, player: player)}
         } catch let error as NSError {
             _error = error
         }
     }
     
-    func saveFootballer(footballer: Footballer, player: Player) {
-        footballer.benchTag = player.view.tag
-        footballer.fieldPositionX = player.view.frame.origin.x
-        footballer.fieldPositionY = player.view.frame.origin.y
-        footballer.side = NSStringFromClass(player.dynamicType)
+    func saveFootballer(_ footballer: Footballer, player: Player) {
+        footballer.benchTag = NSNumber(value: player.view.tag)
+        footballer.fieldPositionX = NSNumber(value: Float(player.view.frame.origin.x))
+        footballer.fieldPositionY = NSNumber(value: Float(player.view.frame.origin.y))
+        footballer.side = NSStringFromClass(type(of: player))
         
         _error = nil
         
@@ -54,7 +54,7 @@ class Manager {
     
     func takeTheField() -> [Player] {
         var players = [Player]()
-        let fetchRequest = NSFetchRequest(entityName: "Footballer")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Footballer")
 
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "benchTag", ascending: true)]
         _error = nil
@@ -71,7 +71,7 @@ class Manager {
                     let starter = playerClass.init()
                         
                     starter.positionPlayer(CGFloat(fetchedFootballer.fieldPositionX), y: CGFloat(fetchedFootballer.fieldPositionY));
-                    starter.view.tag = fetchedFootballer.benchTag.integerValue;
+                    starter.view.tag = fetchedFootballer.benchTag.intValue;
                         
                     players.append(starter);
                 }
@@ -87,16 +87,16 @@ class Manager {
         return players;
     }
     
-    func sendOff(player: Player) {
+    func sendOff(_ player: Player) {
         _error = nil;
-        let fetchRequest = NSFetchRequest(entityName: "Footballer")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Footballer")
         
         fetchRequest.predicate = NSPredicate(format: "benchTag == %d", player.view.tag)
 
         do {
-            let footballers: [AnyObject] = try self.managedObjectContext!.executeFetchRequest(fetchRequest)
+            let footballers: [AnyObject] = try self.managedObjectContext!.fetch(fetchRequest)
             if footballers.count > 0 {
-                self.managedObjectContext?.deleteObject(footballers[0] as! Footballer)
+                self.managedObjectContext?.delete(footballers[0] as! Footballer)
                 do {
                     try self.managedObjectContext?.save()
                 } catch let error as NSError {
@@ -110,33 +110,33 @@ class Manager {
     
     // MARK: - Core Data stack
     
-    lazy var applicationDocumentsDirectory: NSURL = {
+    lazy var applicationDocumentsDirectory: URL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "mmyrmidons.EarlesSoccerField" in the application's documents Application Support directory.
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.count-1] 
         }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("SoccerPractice", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
+        let modelURL = Bundle.main.url(forResource: "SoccerPractice", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
         }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
         // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SoccerPractice.sqlite")
+        let url = self.applicationDocumentsDirectory.appendingPathComponent("SoccerPractice.sqlite")
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
-            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+            try coordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
         } catch var error1 as NSError {
             error = error1
             coordinator = nil
             // Report any error we got.
             
-            let dict: [NSObject : AnyObject] = [
+            let dict: [AnyHashable: Any] = [
                 NSLocalizedDescriptionKey : "Failed to initialize the application's saved data",
                 NSLocalizedFailureReasonErrorKey : failureReason,
                 NSUnderlyingErrorKey : error!

@@ -36,11 +36,11 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         
         view.addSubview(chalkboard.view);
         self.addChildViewController(chalkboard);
-        chalkboard.didMoveToParentViewController(self);
+        chalkboard.didMove(toParentViewController: self);
 
         for starter:Player in Manager.ofFootballers.takeTheField() {
             self.addChildViewController(starter);
-            starter.didMoveToParentViewController(self);
+            starter.didMove(toParentViewController: self);
             view.addSubview(starter.view);
             
             if starter.view.tag > benchTag
@@ -53,7 +53,7 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         blueSolid.positionPlayer(970, y: 50);
         blueSolid.cloneDelegate = self;
         self.addChildViewController(blueSolid);
-        blueSolid.didMoveToParentViewController(self);
+        blueSolid.didMove(toParentViewController: self);
         view.addSubview(blueSolid.view);
         blueSolid.view.tag = benchTag;
         benchTag += 1;
@@ -62,7 +62,7 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         redStripe.positionPlayer(970, y: 130);
         redStripe.cloneDelegate = self;
         self.addChildViewController(redStripe);
-        redStripe.didMoveToParentViewController(self);
+        redStripe.didMove(toParentViewController: self);
         view.addSubview(redStripe.view);
         redStripe.view.tag = benchTag;
         benchTag += 1;
@@ -71,7 +71,7 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         indigoChevron.positionPlayer(970, y: 210);
         indigoChevron.cloneDelegate = self;
         self.addChildViewController(indigoChevron);
-        indigoChevron.didMoveToParentViewController(self);
+        indigoChevron.didMove(toParentViewController: self);
         view.addSubview(indigoChevron.view);
         indigoChevron.view.tag = benchTag;
         benchTag += 1;
@@ -80,7 +80,7 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         orangeSolid.positionPlayer(970, y: 290);
         orangeSolid.cloneDelegate = self;
         self.addChildViewController(orangeSolid);
-        orangeSolid.didMoveToParentViewController(self);
+        orangeSolid.didMove(toParentViewController: self);
         view.addSubview(orangeSolid.view);
         orangeSolid.view.tag = benchTag;
         benchTag += 1;
@@ -89,7 +89,7 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         purpleStripe.positionPlayer(970, y: 370);
         purpleStripe.cloneDelegate = self;
         self.addChildViewController(purpleStripe);
-        purpleStripe.didMoveToParentViewController(self);
+        purpleStripe.didMove(toParentViewController: self);
         view.addSubview(purpleStripe.view);
         purpleStripe.view.tag = benchTag;
         benchTag += 1;
@@ -98,16 +98,16 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         redSolid.positionPlayer(970, y: 450);
         redSolid.cloneDelegate = self;
         self.addChildViewController(redSolid);
-        redSolid.didMoveToParentViewController(self);
+        redSolid.didMove(toParentViewController: self);
         view.addSubview(redSolid.view);
         redSolid.view.tag = benchTag;
         benchTag += 1;
         bench.append(redSolid);
         
-        self.view.bringSubviewToFront(eraser);
-        self.view.bringSubviewToFront(darkSlateGray);
-        self.view.bringSubviewToFront(fireBrick);
-        self.view.bringSubviewToFront(navy);
+        self.view.bringSubview(toFront: eraser);
+        self.view.bringSubview(toFront: darkSlateGray);
+        self.view.bringSubview(toFront: fireBrick);
+        self.view.bringSubview(toFront: navy);
     }
 
     override func viewDidLayoutSubviews() {
@@ -116,15 +116,15 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         chalkboard.view.frame = view.bounds;
     }
 
-    @IBAction func changeColour(sender:UIButton!) {
-        chalkboard.changeColour(sender.backgroundColor!.CGColor);
+    @IBAction func changeColour(_ sender:UIButton!) {
+        chalkboard.changeColour(sender.backgroundColor!.cgColor);
     }
     
-    @IBAction func erase(sender:UIButton!) {
+    @IBAction func erase(_ sender:UIButton!) {
         chalkboard.erase();
     }
     
-    func clone(player: Player) {
+    func clone(_ player: Player) {
         let newPlayer: Player = player.copy() as! Player;
         newPlayer.positionPlayer(player.view.frame.origin.x, y: player.view.frame.origin.y);
         bench.append(newPlayer);
@@ -133,16 +133,16 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
         benchTag += 1;
         
         self.addChildViewController(newPlayer);
-        newPlayer.didMoveToParentViewController(self);
+        newPlayer.didMove(toParentViewController: self);
         self.view.addSubview(newPlayer.view);
 
         player.cloneDelegate = nil;
         player.refereeDelegate = self;
     }
 
-    func sendOff(player: Player) {
-        if let i = bench.indexOf(player) {
-            bench.removeAtIndex(i);
+    func sendOff(_ player: Player) {
+        if let i = bench.index(of: player) {
+            bench.remove(at: i);
             
             player.removeFromParentViewController();
             player.view.removeFromSuperview();
