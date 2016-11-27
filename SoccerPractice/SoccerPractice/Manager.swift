@@ -9,13 +9,15 @@
 import CoreData
 import UIKit;
 
-private let _ofFootballers = Manager()
+//private let _ofFootballers = Manager()
 private var _error:NSError? = nil
 
 class Manager {
-    class var ofFootballers: Manager {
-        return _ofFootballers;
-    }
+//    class var ofFootballers: Manager {
+//        return _ofFootballers;
+//    }
+    
+    static let ofFootballers = Manager()
  
     func updateFootballer(_ player: Player) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Footballer")
@@ -54,7 +56,7 @@ class Manager {
     
     func takeTheField() -> [Player] {
         var players = [Player]()
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Footballer")
+        let fetchRequest = NSFetchRequest<Footballer>(entityName: "Footballer")
 
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "benchTag", ascending: true)]
         _error = nil
@@ -64,7 +66,7 @@ class Manager {
         do {
             try fetchedFootballers.performFetch()
             
-            for fetchedFootballer:Footballer in fetchedFootballers.fetchedObjects as! [Footballer] {
+            for fetchedFootballer:Footballer in fetchedFootballers.fetchedObjects! {
                 print("Hi Miss Callie: \(fetchedFootballer) :: \(fetchedFootballer.side)")
                 
                 if let playerClass = NSClassFromString(fetchedFootballer.side) as? Player.Type {
@@ -89,14 +91,16 @@ class Manager {
     
     func sendOff(_ player: Player) {
         _error = nil;
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Footballer")
+        let fetchRequest = NSFetchRequest<Footballer>(entityName: "Footballer")
         
         fetchRequest.predicate = NSPredicate(format: "benchTag == %d", player.view.tag)
 
         do {
-            let footballers: [AnyObject] = try self.managedObjectContext!.fetch(fetchRequest)
+            let footballers = try self.managedObjectContext!.fetch(fetchRequest)
+
             if footballers.count > 0 {
-                self.managedObjectContext?.delete(footballers[0] as! Footballer)
+                self.managedObjectContext?.delete(footballers[0])
+                
                 do {
                     try self.managedObjectContext?.save()
                 } catch let error as NSError {
@@ -105,6 +109,10 @@ class Manager {
             }
         } catch let error as NSError {
             _error = error
+        }
+        
+        if let error = _error {
+            print("Error = \(error)")
         }
     }
     

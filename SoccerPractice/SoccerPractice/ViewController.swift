@@ -18,7 +18,7 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
     var bench = [Player]();
     var benchTag = 0;
     
-    let blueSolid: BlueSolid = BlueSolid();
+    let blueSolid: BlueSolid = BlueSolid(uniform: .BlueSolid)
     let indigoChevron: IndigoChevron = IndigoChevron();
     let orangeSolid: OrangeSolid = OrangeSolid();
     let purpleStripe: PurpleStripe = PurpleStripe();
@@ -149,11 +149,6 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
             
             Manager.ofFootballers.sendOff(player);
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 

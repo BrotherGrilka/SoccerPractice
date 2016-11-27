@@ -53,14 +53,16 @@ class Chalkboard: UIViewController {
   
         mannysCanvas.image?.draw(in: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height));
         
-        UIGraphicsGetCurrentContext()?.move(to: CGPoint(x: lastPoint.x, y: lastPoint.y));
-        UIGraphicsGetCurrentContext()?.addLine(to: CGPoint(x: currentPoint.x, y: currentPoint.y));
-        UIGraphicsGetCurrentContext()?.setLineCap(CGLineCap.round);
-        UIGraphicsGetCurrentContext()?.setLineWidth(brush );
-        UIGraphicsGetCurrentContext()?.setStrokeColor(red: red, green: green, blue: blue, alpha: 1.0);
-        UIGraphicsGetCurrentContext()?.setBlendMode(CGBlendMode.normal);
-
-        UIGraphicsGetCurrentContext()?.strokePath();
+        if let context = UIGraphicsGetCurrentContext() {
+            context.move(to: CGPoint(x: lastPoint.x, y: lastPoint.y))
+            context.addLine(to: CGPoint(x: currentPoint.x, y: currentPoint.y))
+            context.setLineCap(CGLineCap.round)
+            context.setLineWidth(brush)
+            context.setStrokeColor(red: red, green: green, blue: blue, alpha: 1.0)
+            context.setBlendMode(CGBlendMode.normal)
+            context.strokePath()
+        }
+            
         self.mannysCanvas.image = UIGraphicsGetImageFromCurrentImageContext();
         mannysCanvas.alpha = opacity;
         UIGraphicsEndImageContext();
@@ -68,24 +70,15 @@ class Chalkboard: UIViewController {
         lastPoint = currentPoint;
     }
     
-    func erase()
-    {
-//        let context = UIGraphicsGetCurrentContext();
-//        CGContextClearRect(context, self.mannysCanvas.bounds);
-        
+    func erase() {
         self.mannysCanvas.image = nil;
     }
     
     func changeColour(_ color: CGColor) {
-//        CGColorRef colorRef = [colorButton.backgroundColor CGColor];
-        
-        let _countComponents = color.numberOfComponents;
-        
-        if (_countComponents == 4) {
-            let _components = color.components;
-            red     = (_components?[0])!;
-            green = (_components?[1])!;
-            blue   = (_components?[2])!;
+        if (color.numberOfComponents == 4) {
+            red = (color.components?[0])!
+            green = (color.components?[1])!
+            blue = (color.components?[2])!
         }
     }
 

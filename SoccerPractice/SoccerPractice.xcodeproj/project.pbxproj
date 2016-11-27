@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0C77AC071AE97FBD00D2E9C1 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C77AC061AE97FBD00D2E9C1 /* Manager.swift */; };
+		B4458A1E1DE9EC720029454C /* star_trek.TTF in Resources */ = {isa = PBXBuildFile; fileRef = B4458A1D1DE9EC720029454C /* star_trek.TTF */; };
+		B47ABE361DA800CF0071AA24 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47ABE351DA800CF0071AA24 /* PlayerView.swift */; };
 		B4EACCA11A88EE1D003ED759 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EACC851A88EE1D003ED759 /* AppDelegate.swift */; };
 		B4EACCA21A88EE1D003ED759 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4EACC861A88EE1D003ED759 /* LaunchScreen.xib */; };
 		B4EACCA31A88EE1D003ED759 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4EACC881A88EE1D003ED759 /* Main.storyboard */; };
@@ -38,6 +40,8 @@
 /* Begin PBXFileReference section */
 		0C77AC061AE97FBD00D2E9C1 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		0CFFE2501A30E83E008E80C1 /* SoccerPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoccerPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4458A1D1DE9EC720029454C /* star_trek.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = star_trek.TTF; sourceTree = "<group>"; };
+		B47ABE351DA800CF0071AA24 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		B4EACC851A88EE1D003ED759 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4EACC871A88EE1D003ED759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B4EACC891A88EE1D003ED759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 				B4EACC991A88EE1D003ED759 /* PurpleStripe.swift */,
 				B4EACC9B1A88EE1D003ED759 /* RedSolid.swift */,
 				B4EACC9D1A88EE1D003ED759 /* RedStripe.swift */,
+				B47ABE351DA800CF0071AA24 /* PlayerView.swift */,
 			);
 			name = Players;
 			sourceTree = "<group>";
@@ -152,6 +157,7 @@
 		B4EACCBC1A88EEC8003ED759 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B4458A1D1DE9EC720029454C /* star_trek.TTF */,
 				B4EACCBF1A88EFD6003ED759 /* Info.plist */,
 				B4EACCBD1A88EEDD003ED759 /* images */,
 			);
@@ -244,6 +250,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4458A1E1DE9EC720029454C /* star_trek.TTF in Resources */,
 				B4EACCAD1A88EE1D003ED759 /* MannysField.png in Resources */,
 				B4EACCB21A88EE1D003ED759 /* PurpleStripe.png in Resources */,
 				B4EACCA21A88EE1D003ED759 /* LaunchScreen.xib in Resources */,
@@ -276,6 +283,7 @@
 				B4EACCA51A88EE1D003ED759 /* BlueSolid.swift in Sources */,
 				0C77AC071AE97FBD00D2E9C1 /* Manager.swift in Sources */,
 				B4EACCB11A88EE1D003ED759 /* Player.swift in Sources */,
+				B47ABE361DA800CF0071AA24 /* PlayerView.swift in Sources */,
 				B4EACCB31A88EE1D003ED759 /* PurpleStripe.swift in Sources */,
 				B4EACCB01A88EE1D003ED759 /* OrangeSolid.swift in Sources */,
 				B4F466911B80B9BD004E0838 /* Footballer.swift in Sources */,

@@ -17,18 +17,36 @@ protocol RefereeingDelegate {
 }
 
 class Player: UIViewController, NSCopying {
-    let playerSize:CGRect = CGRect(x: 0, y: 0, width: 40, height: 60);
-    var playerImage:UIImageView = UIImageView();
-    let dragg: UIPanGestureRecognizer = UIPanGestureRecognizer();
-    let doubleTapp: UITapGestureRecognizer = UITapGestureRecognizer();
+    enum Uniform {
+        case BlueSolid
+        case IndigoChevron
+        case OrangeSolid
+        case PurpleStripe
+        case RedSolid
+        case RedStripe
+    }
+    
+    let playerSize:CGRect = CGRect(x: 0, y: 0, width: 40, height: 60)
+    var playerImage:UIImageView = UIImageView()
+    let dragg: UIPanGestureRecognizer = UIPanGestureRecognizer()
+    let tapp: UITapGestureRecognizer = UITapGestureRecognizer()
     var cloneDelegate:CloningDelegate?
     var refereeDelegate:RefereeingDelegate?
+    
+    let uniform:Uniform
 
     required init?(coder aDecoder: NSCoder) {
+        self.uniform = .BlueSolid
         super.init(coder: aDecoder)
     }
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
+        self.uniform = .RedSolid
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    init(uniform: Uniform) {
+        self.uniform = uniform
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -41,13 +59,12 @@ class Player: UIViewController, NSCopying {
         self.view.addSubview(playerImage);
         
         dragg.addTarget(self, action:#selector(Player.drag(_:)));
-        doubleTapp.addTarget(self, action: #selector(Player.doubleTap(_:)));
-//        doubleTapp.numberOfTapsRequired = 2;
+        tapp.addTarget(self, action: #selector(Player.tap(_:)));
         
         self.view.addGestureRecognizer(dragg);
-        self.view.addGestureRecognizer(doubleTapp);
+        self.view.addGestureRecognizer(tapp);
     }
-
+    
     func positionPlayer(_ x: CGFloat, y: CGFloat) {
         view.frame = CGRect(x: x, y: y, width: view.frame.width, height: view.frame.height)
     }
@@ -64,7 +81,7 @@ class Player: UIViewController, NSCopying {
             {Manager.ofFootballers.updateFootballer(self)}
     }
     
-    func doubleTap(_ recognizer: UITapGestureRecognizer) {
+    func tap(_ recognizer: UITapGestureRecognizer) {
         refereeDelegate?.sendOff(self);
     }
     
