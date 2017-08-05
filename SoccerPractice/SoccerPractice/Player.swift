@@ -17,15 +17,6 @@ protocol RefereeingDelegate {
 }
 
 class Player: UIViewController, NSCopying {
-    enum Uniform {
-        case BlueSolid
-        case IndigoChevron
-        case OrangeSolid
-        case PurpleStripe
-        case RedSolid
-        case RedStripe
-    }
-    
     let playerSize:CGRect = CGRect(x: 0, y: 0, width: 40, height: 60)
     var playerImage:UIImageView = UIImageView()
     let dragg: UIPanGestureRecognizer = UIPanGestureRecognizer()
@@ -33,23 +24,14 @@ class Player: UIViewController, NSCopying {
     var cloneDelegate:CloningDelegate?
     var refereeDelegate:RefereeingDelegate?
     
-    let uniform:Uniform
-
     required init?(coder aDecoder: NSCoder) {
-        self.uniform = .BlueSolid
         super.init(coder: aDecoder)
     }
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
-        self.uniform = .RedSolid
         super.init(nibName: nil, bundle: nil)
     }
     
-    init(uniform: Uniform) {
-        self.uniform = uniform
-        super.init(nibName: nil, bundle: nil)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         

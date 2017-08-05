@@ -18,13 +18,12 @@ class ViewController: UIViewController, CloningDelegate, RefereeingDelegate {
     var bench = [Player]();
     var benchTag = 0;
     
-    let blueSolid: BlueSolid = BlueSolid(uniform: .BlueSolid)
+    let blueSolid: BlueSolid = BlueSolid()
     let indigoChevron: IndigoChevron = IndigoChevron();
     let orangeSolid: OrangeSolid = OrangeSolid();
     let purpleStripe: PurpleStripe = PurpleStripe();
     let redSolid: RedSolid = RedSolid();
     let redStripe: RedStripe = RedStripe();
-    
     let chalkboard: Chalkboard = Chalkboard();
     
     required init?(coder aDecoder: NSCoder) {

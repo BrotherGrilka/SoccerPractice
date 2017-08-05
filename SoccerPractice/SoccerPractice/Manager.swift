@@ -47,7 +47,7 @@ class Manager {
             try self.managedObjectContext!.save()
         } catch let error as NSError {
             _error = error
-            NSLog("Unresolved error \(_error), \(_error!.userInfo)")
+            NSLog("Unresolved error \(String(describing: _error)), \(_error!.userInfo)")
             abort()
         }
         
@@ -153,7 +153,7 @@ class Manager {
             error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog("Unresolved error \(error), \(error!.userInfo)")
+            print("Unresolved error \(String(describing: error)), \(error!.userInfo)")
             abort()
         } catch {
             fatalError()
@@ -168,7 +168,8 @@ class Manager {
         if coordinator == nil {
             return nil
         }
-        var managedObjectContext = NSManagedObjectContext()
+                
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
         }()
@@ -185,7 +186,7 @@ class Manager {
                     error = error1
                     // Replace this implementation with code to handle the error appropriately.
                     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    NSLog("Unresolved error \(error), \(error!.userInfo)")
+                    print("Unresolved error \(String(describing: error)), \(error!.userInfo)")
                     abort()
                 }
             }
